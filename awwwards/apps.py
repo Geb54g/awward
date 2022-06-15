@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class AwwardappConfig(AppConfig):
+class AwwwardsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'awwardApp'
+    name = 'awwwards'
