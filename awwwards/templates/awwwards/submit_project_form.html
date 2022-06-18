@@ -9,7 +9,7 @@
     <section>
         <form class="submit-project-form" action="{% url 'submit-project'%}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <!-- info -->
+    
             <div class="drop">
                 <div class="dropdown" data-dropdown>
                     <button class="info-btn dropdown-btn" data-dropdown-button>
@@ -20,7 +20,6 @@
                     </div>
                 </div>
             </div>
-            <!-- form -->
             <h5 class="title">Submit Project</h5>
             <div class="form-group">
                 <label for="id_title" class="form-label">Title</label>
