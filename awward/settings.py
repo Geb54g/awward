@@ -33,7 +33,9 @@ SECRET_KEY = config('SECRET_KEY')
 # DEBUG = os.environ.get('DEBUG')
 DEBUG = True
 
-# ALLOWED_HOSTS = ['*']
+MODE = 'Prod'
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -85,7 +87,7 @@ WSGI_APPLICATION = 'awward.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-if (config('MODE') == 'dev'):
+if MODE == 'dev':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
