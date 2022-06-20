@@ -31,11 +31,12 @@ class ProjectList(APIView):
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
-    projects = Project.objects.filter(
-        Q(title__icontains = q) |
-        Q(description__icontains = q) |
-        Q(user_project__user_profile__username__icontains = q)
-    )
+    # projects = Project.objects.filter(
+    #     Q(title__icontains = q) |
+    #     Q(description__icontains = q) |
+    #     Q(user_project__user_profile__username__icontains = q)
+    # )
+    projects = Project.objects.all()
 
     context = {'projects': projects }
     return render(request, 'awwwards/home.html', context)
@@ -81,6 +82,8 @@ def register_user(request):
                 user = form.save(commit=False)
                 user.username = user.username.lower()
                 user.save()
+                profile = Profile(user_project=user)
+                profile.save()
                 login(request, user)
                 messages.success(request, f'Hi {request.user.username}, Your account was successfully created')
                 return redirect('home')
@@ -104,17 +107,18 @@ def profile(request,pk):
 @login_required(login_url='login')
 def submit_project(request):
     form = ProjectForm()
+    # profile = Profile.objects.get(user_profile=request.user)
     if request.method == 'POST':
-        try:
+        # try:
             form = ProjectForm(request.POST, request.FILES)
             if form.is_valid:
-                user = form.save(commit=False)
-                user.user_project_id = request.user.id
-                user.save()
+                project = form.save(commit = False)
+                # project.user_project = profile
+                project.save()
                 messages.success(request, f'{request.user.username}, Your project was successfully submited')
                 return redirect('home')
-        except Exception as e:
-            messages.error(request, 'An error occured during submition. Try again')
+        # except Exception as e:
+        #     messages.error(request, 'An error occured during submition. Try again')
 
     context = { 'form': form }
     return render(request, 'awwwards/submit_project_form.html', context)

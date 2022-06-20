@@ -5,7 +5,7 @@ from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
 
 class Profile(models.Model):
-    user_profile = models.OneToOneField(User, on_delete=models.CASCADE)
+    user_profile = models.OneToOneField(User, on_delete=models.CASCADE,related_name='profile')
     profile_photo = CloudinaryField('profile_photo', blank=True)
     bio = models.CharField(blank=True, max_length=150)
     facebook = models.URLField(blank=True, max_length=150)
@@ -31,7 +31,7 @@ class Project(models.Model):
     user_project = models.ForeignKey(Profile ,on_delete=models.CASCADE,)
     ratings = models.ManyToManyField('Rating',related_name='ratings', blank=True)
     updated = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['updated', 'created']
@@ -61,7 +61,7 @@ class Rating(models.Model):
     project = models.ForeignKey(Project ,on_delete=models.CASCADE)
     rated_by = models.ForeignKey(User ,on_delete=models.CASCADE)
     updated = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['updated', 'created']

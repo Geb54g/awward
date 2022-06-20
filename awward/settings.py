@@ -144,7 +144,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 if config('MODE')=="dev":
-    STATIC_URL = 'static/'
+    STATIC_URL = '/static/'
 
     STATICFILES_DIRS = [
         BASE_DIR / 'static'
@@ -178,10 +178,10 @@ else:
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Cloudinary settings
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME':'gebs',
-    'API_KEY':'364344722915987',
-    'API_SECRET':'YslD45qKqUcF1R7uduygbz4Txb4'
-}
+cloudinary.config(
+    cloud_name ='gebs',
+    api_key ='364344722915987',
+    api_secret ='YslD45qKqUcF1R7uduygbz4Txb4'
+)
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
